@@ -15,6 +15,3 @@ class Medico:
     @property
     def especialidad(self):
         return self._especialidad
-
-    def resumen(self):
-        return f"{self._codigo} - {self._nombre} - {self._especialidad}"

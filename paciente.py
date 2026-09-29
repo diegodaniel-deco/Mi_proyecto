@@ -15,6 +15,3 @@ class Paciente:
     @property
     def edad(self):
         return self._edad
-
-    def resumen(self):
-        return f"{self._codigo} - {self._nombre} - {self._edad} años"

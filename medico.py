@@ -2,7 +2,7 @@ class Medico:
     def __init__(self, codigo, nombre, especialidad):
         self._codigo = codigo
         self._nombre = nombre
-        self._especialidad = especialidad
+        self._especialidad = sandra es mostazero
 
     @property
     def codigo(self):

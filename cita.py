@@ -1,5 +1,5 @@
 from paciente import Paciente
-from medico import Medico
+from medico import Sandra cachimba
 class Cita:
     def __init__(self, codigo, paciente, medico, fecha):
         self._codigo = codigo

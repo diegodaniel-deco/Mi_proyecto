@@ -84,7 +84,7 @@ def seleccionar_opcion():
         case 5:
             print("Opción pendiente")
         case 6:
-            print("Función pendiente)
+            print("Opción pendiente)
         case 7:
             print("Gracias por utilizar nuestro sistema.")
             return False
@@ -104,8 +104,8 @@ def registro_cliente():
     telefono = input("Ingresar número de contacto: ")
     for cliente in clientes:
         if cliente._codigo_cliente == codigo_cliente:
-        print("Este codigo ya a sido registrado")
-        return
+            print("Este codigo ya a sido registrado")
+            return
     cliente = Cliente(nombre, codigo_cliente, telefono)
     clientes.append(cliente)
     print("Cliente registrado correctamente.")
@@ -128,31 +128,75 @@ while True:
 ║   7.   Big crunch                         S/ 15.00 ║
 ║   8.   Menú universitario                 S/ 12.00 ║
 ╠════════════════════════════════════════════════════╣
+║   9.   Ver menú de extras                          ║
 ║   0.   Terminar selección de platos                ║
 ╚════════════════════════════════════════════════════╝
 """)
-
-    plato_seleccionado = int(input("Seleccione un plato (1-8) o (0 para terminar el listado): "))
-     if plato_seleccionado == 0:
+        plato_seleccionado = int(input("Seleccione una opción (0-9): "))
+        if plato_seleccionado == 0:
             if len(pedido_actual) == 0:
                 print("Primero debe seleccionar un plato.")
             else:
                 break
-    if 1 <= plato_seleccionado <= len(platos):
-        cant_plato = int(input("Indique la cantidad: "))
-        if cant_plato > 0:
-            plato = platos[plato_seleccionado - 1]
-            subtotal = plato._precio * cant_plato
-            pedido_actual.append((plato, cant_plato, subtotal))
-            print("\nPLATO SELECCIONADO")
-            print(f"Plato: {plato._nombre}")
-            print(f"Cantidad: {cant_plato}")
-            print(f"Subtotal: S/{subtotal:.2f}")
-            print("\nPlato agregado correctamente")
+            elif plato_seleccionado == 9:
+            while True:
+                print("""
+╔════════════════════════════════════════════════════╗
+║              LOS POLLOS HERMANOS                   ║
+║                    MENÚ DE EXTRAS                  ║
+╠════════════════════════════════════════════════════╣
+║  N.°   EXTRA                              PRECIO   ║
+╠════════════════════════════════════════════════════╣
+║   1.   Porción de papas                    S/ 10.00║
+║   2.   Limonada                            S/  2.00║
+║   3.   Chicha morada                       S/  3.00║
+║   4.   Ensalada                            S/  5.00║
+║   5.   Gaseosa 1L                          S/ 10.00║
+║   6.   Gaseosa 1/2L                        S/  8.00║
+║   7.   Gaseosa personal                    S/  2.00║
+╠════════════════════════════════════════════════════╣
+║   0.   Volver al menú de platos                    ║
+╚════════════════════════════════════════════════════╝
+""")
+                opcion_extra = int(input("Seleccione un extra (0-7): "))
+                if opcion_extra == 0:
+                    break
+                elif 1 <= opcion_extra <= len(extras):
+                    cant_extra = int(input("Indique la cantidad: "))
+                    if cant_extra > 0:
+                        extra = extras[opcion_extra - 1]
+                        subtotal = extra.precio * cant_extra
+                        pedido_actual.append((extra, cant_extra, subtotal))
+                        print("\nEXTRA SELECCIONADO")
+                        print(f"Extra: {extra.nombre}")
+                        print(f"Cantidad: {cant_extra}")
+                        print(f"Subtotal: S/{subtotal:.2f}")
+                        print("\nExtra agregado correctamente.")
+                    else:
+                        print("La cantidad debe ser mayor a cero.")
+                else:
+                    print("El extra seleccionado no existe.")
+        elif 1 <= plato_seleccionado <= len(platos):
+            cant_plato = int(input("Indique la cantidad: "))
+            if cant_plato > 0:
+                plato = platos[plato_seleccionado - 1]
+                subtotal = plato._precio * cant_plato
+                pedido_actual.append((plato, cant_plato, subtotal))
+                print("\nPLATO SELECCIONADO")
+                print(f"Plato: {plato._nombre}")
+                print(f"Cantidad: {cant_plato}")
+                print(f"Subtotal: S/{subtotal:.2f}")
+                print("\nPlato agregado correctamente.")
+            else:
+                print("La cantidad debe ser mayor a cero.")
         else:
-            print("La cantidad debe ser mayor a cero.")
-    else:
-        print("El plato seleccionado no existe.")
+            print("El plato seleccionado no existe.")
+
+def buscar_cliente(codigo):
+    for cliente in clientes:
+        if cliente._codigo_cliente == codigo:
+            return cliente
+    return None
 
 def toma_pedido():
     print("""
@@ -184,6 +228,11 @@ def toma_pedido():
 """)
     total = 0
     for plato, cantidad, subtotal in pedido_actual:
+        if isinstance(plato, Extra):
+            print(f"Extra: {plato.nombre}")
+        else:
+            print(f"Plato: {plato._nombre}")
+            
         print(f"Plato: {plato._nombre}")
         print(f"Cantidad: {cantidad}")
         print(f"Subtotal: S/ {subtotal:.2f}")
@@ -192,8 +241,7 @@ def toma_pedido():
     print(f"Cliente: {cliente_encontrado._nombre}")
     print(f"Código de cliente: {cliente_encontrado._codigo_cliente}")
     print(f"TOTAL A PAGAR: S/ {total:.2f}")
-    confirmar = input(
-        "\n¿Este es el pedido que desea registrar? (si/no): ").lower()
+    confirmar = input("\n¿Este es el pedido que desea registrar? (si/no): ").lower()
     if confirmar == "si":
         codigo_pedido = len(restaurante._pedidos) + 1
         pedido = Pedido(cliente_encontrado, codigo_pedido)
@@ -230,7 +278,10 @@ def consultar_pedido():
             print("--------------------------------------")
             total = 0
             for plato, cantidad, subtotal in pedido._platos:
-                print(f"Plato: {plato._nombre}")
+                 if isinstance(plato, Extra):
+                    print(f"Extra: {plato.nombre}")
+                else:
+                    print(f"Plato: {plato._nombre}")
                 print(f"Cantidad: {cantidad}")
                 print(f"Subtotal: S/ {subtotal:.2f}")
                 print("--------------------------------------")

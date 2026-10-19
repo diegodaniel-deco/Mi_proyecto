@@ -84,7 +84,7 @@ def seleccionar_opcion():
         case 5:
             print("Opción pendiente")
         case 6:
-            print("Opción pendiente)
+            print("Opción pendiente")
         case 7:
             print("Gracias por utilizar nuestro sistema.")
             return False
@@ -275,18 +275,22 @@ def consultar_pedido():
             print(f"Cliente: {pedido._cliente._nombre}")
             print(f"Código del cliente: {pedido._cliente._codigo_cliente}")
             print("--------------------------------------")
+            
             total = 0
             for plato, cantidad, subtotal in pedido._platos:
-                 if isinstance(plato, Extra):
+                if isinstance(plato, Extra):
                     print(f"Extra: {plato.nombre}")
-                 else:
+                else:
                     print(f"Plato: {plato._nombre}")
+
                 print(f"Cantidad: {cantidad}")
                 print(f"Subtotal: S/ {subtotal:.2f}")
                 print("--------------------------------------")
                 total += subtotal
+
             print(f"TOTAL A PAGAR: S/ {total:.2f}")
             break
+
     if encontrado == False:
         print("No se encontró el pedido.")
 

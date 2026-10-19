@@ -111,7 +111,7 @@ def registro_cliente():
     print("Cliente registrado correctamente.")
 
 def mostrar_menu(pedido_actual):
-while True:
+    while True:
         print("""
 ╔════════════════════════════════════════════════════╗
 ║              LOS POLLOS HERMANOS                   ║
@@ -138,7 +138,7 @@ while True:
                 print("Primero debe seleccionar un plato.")
             else:
                 break
-            elif plato_seleccionado == 9:
+        elif plato_seleccionado == 9:
             while True:
                 print("""
 ╔════════════════════════════════════════════════════╗
@@ -233,7 +233,6 @@ def toma_pedido():
         else:
             print(f"Plato: {plato._nombre}")
             
-        print(f"Plato: {plato._nombre}")
         print(f"Cantidad: {cantidad}")
         print(f"Subtotal: S/ {subtotal:.2f}")
         print("--------------------------------------")
@@ -280,7 +279,7 @@ def consultar_pedido():
             for plato, cantidad, subtotal in pedido._platos:
                  if isinstance(plato, Extra):
                     print(f"Extra: {plato.nombre}")
-                else:
+                 else:
                     print(f"Plato: {plato._nombre}")
                 print(f"Cantidad: {cantidad}")
                 print(f"Subtotal: S/ {subtotal:.2f}")

@@ -3,7 +3,7 @@ class Medico:
         self._codigo = codigo
         self._nombre = nombre
         self._especialidad = especialidad
-
+// hola
     @property
     def codigo(self):
         return self._codigo

@@ -279,12 +279,12 @@ def toma_pedido():
     total = 0
     for plato, cantidad, subtotal in pedido_actual:
         if isinstance(plato, Extra):
-        print(f"Extra: {plato.nombre}")
+            print(f"Extra: {plato.nombre}")
         else:
-        print(f"Plato: {plato._nombre}")
-        print(f"Cantidad: {cantidad}")
-        print(f"Subtotal: S/ {subtotal:.2f}")
-        print("--------------------------------------")
+            print(f"Plato: {plato._nombre}")
+            print(f"Cantidad: {cantidad}")
+            print(f"Subtotal: S/ {subtotal:.2f}")
+            print("--------------------------------------")
         total += subtotal
     print(f"Cliente: {cliente_encontrado._nombre}")
     print(f"Código de cliente: {cliente_encontrado._codigo_cliente}")
